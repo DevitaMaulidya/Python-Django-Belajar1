@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block isi %}
+<section id="form">
+    <center><h1> Halaman Tambah Barang</h1></center>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2">
+                {% for message in messages %}
+                    {% if message %}
+                        <div class="alert alert-success">{{ message }}</div>
+                    {% endif %}
+                {% endfor %}
+                <h3>Ubah : {{ barangs.kodebrg }}</h3>
+                <form action="{% url 'ubah_brg' barangs.id %}" method="post">
+                    {% csrf_token %}
+                    {{form.as_p}}
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                    <A href="/Vbrg/" class="btn btn-danger">Kembali</A>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

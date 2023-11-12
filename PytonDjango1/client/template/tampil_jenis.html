@@ -1,0 +1,77 @@
+{% extends 'base.html' %} {% load static %} {% block isi %}
+<section id="tabel">
+  <h1><center>Tampil Jenis Barang</center></h1>
+  <div class="container">
+    <p><a href="/addjenis/" class="btn btn-primary">Tambah Data</a></p>
+    {% for message in messages %} {% if message %}
+    <div class="alert alert-success">{{ message }}</div>
+    {% endif %} {% endfor %}
+    <table class="table table-striped">
+      <tr>
+        <th>Id_Jenis</th>
+        <th>Nama</th>
+        <th>Keterangan</th>
+        <th>Aksi</th>
+      </tr>
+      {% for Jenis in jeniss %}
+      <tr>
+        <th>
+          <a href="{% url 'ubah_jenis' Jenis.id %}">{{Jenis.nama}}</a>
+        </th>
+        <th>{{Jenis.nama}}</th>
+        <th>{{Jenis.ket}}</th>
+        <th>
+          <button
+            type="button"
+            class="btn btn-danger"
+            data-bs-toggle="modal"
+            data-bs-target="#hapus-{{ Jenis.id }}"
+          >
+            Hapus
+          </button>
+        </th>
+        <!--Modal-->
+        <div
+          class="modal fade"
+          id="hapus-{{ Jenis.id }}"
+          tabindex="-1"
+          aria-labellebdy="exampleModal Label"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">
+                  Yakin akan dihapus ?
+                </h1>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body">Nama : {{ Jenis.nama }}</div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  ndata-bs-dismiss="modal"
+                >
+                  Batal
+                </button>
+                <a
+                  href="{% url 'hapus_jenis' Jenis.id %}"
+                  class="btn btn-danger"
+                  >Yakin</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+</section>
+{% endblock %}
